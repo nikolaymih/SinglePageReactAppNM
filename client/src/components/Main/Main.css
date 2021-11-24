@@ -1,20 +1,24 @@
 .referenceValues {
-    max-width: 70%;
+    max-width: 60%;
     margin: 0 auto;
     margin-top: 70px;
     border-top: 3px solid;
     position: relative;
     border-radius: 2px;
-    clip-path: polygon(0 0, 30% 0%, 30% 10%, 100% 25%, 100% 100%, 0 100%);
+    /* clip-path: polygon(0 0, 30% 0%, 30% 10%, 100% 25%, 100% 100%, 0 100%); */
 }
 
-.referenceValues p {
-    margin-top: 44px;
+.referenceValuesTitle {
+    margin-top: 35px;
 }
 
 .overallVurnerability {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
+}
+
+.userResult {
+    padding-left: 100px;
 }
 
 .graphValues {
@@ -24,4 +28,70 @@
     font-size: 14px;
     font-weight: bold;
     color: black
+}
+
+.fieldset {
+    border-color: orange;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 4px;
+}
+
+.legend {
+    padding: 5px;
+    font-weight: bold;
+}
+
+.howRUDoing {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.arrowContainer {
+    border-right: 3px solid orange;
+    padding: 1px 10px;
+}
+
+.arrowContainer .arrow {
+    font-size: 60px;
+    margin-bottom: 30px;
+    color: orange;
+}
+
+.scale p {
+    color: lightgray;
+    font-weight: bold;
+}
+
+.pieChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+.labelList {
+    padding-right: 50px;
+}
+
+.businessInformation {
+    padding-left: 25px
+}
+
+.businessInformation h3 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.businessInformation p {
+    font-size: 7px;
+}
+
+.scoreBtn {
+    background-color: white;
+    padding: 5px 30px 5px 30px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
