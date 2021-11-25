@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import { IUser } from '../../interfaces/user.interface';
+import { IUser, IUserArray } from '../../interfaces/user.interface';
 import { getUserDataService } from '../../service/user.service';
 
 import './Header.css';
 
 const Header = () => {
-    let [data, setData] = useState<IUser>({
+    let [data, setData] = useState<IUserArray>([{
         _id: '',
         name: '',
         image: '',
         userText: '',
         userNumber: 0
-    });
+    }]);
 
     useEffect(() => {
         async function fetchMyApi() {
@@ -25,7 +25,7 @@ const Header = () => {
     return (
         <header className="header">
             <nav className="navigation">
-                <img className="userLogo" src={data.image} alt="...loading" />
+                <img className="userLogo" src={data[0].image} alt="...loading" />
                 <div className="dashboard">
                     <a href="/">
                         Overview

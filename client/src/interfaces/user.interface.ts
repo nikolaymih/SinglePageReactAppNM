@@ -5,3 +5,5 @@ export interface IUser {
     userText: string,
     userNumber: number
 }
+
+export interface IUserArray extends Array<IUser> { }

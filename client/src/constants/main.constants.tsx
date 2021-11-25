@@ -1,4 +1,7 @@
+import { Icon } from "@fortawesome/fontawesome-svg-core";
+import { faCaretRight, faGrinAlt } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { IUser } from "../interfaces/user.interface";
 
 export class CustomizedAxisTick extends React.Component {
     render() {
@@ -46,3 +49,14 @@ export const data = [
 ];
 
 export const barColors = ["#6CE5E8", "#42B8D5", "#2E3192"]
+
+export const faCaretIcon = faCaretRight as Icon
+export const faGrimBeamIcon = faGrinAlt as Icon
+
+export const dataPieScale: IUser = {
+    _id: 'dsadas',
+    name: 'dasdas',
+    image: 'dsadas',
+    userText: 'dsadas',
+    userNumber: 910
+}

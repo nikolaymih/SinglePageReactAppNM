@@ -1,44 +1,37 @@
 import { useState, useEffect } from 'react';
-import { IUser } from '../../interfaces/user.interface';
+import { IUserArray } from '../../interfaces/user.interface';
 import { getUserDataService } from '../../service/user.service';
 
 import { BarChart, Bar, XAxis, Cell, ResponsiveContainer, LabelList, PieChart, Pie } from 'recharts';
-import { barColors, CustomizedAxisTick, data } from '../../constants/main.constants';
+import { barColors, CustomizedAxisTick, data, dataPieScale, faCaretIcon, faGrimBeamIcon } from '../../constants/main.constants';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Icon } from '@fortawesome/fontawesome-svg-core';
-import { faCaretRight, faGrinAlt } from '@fortawesome/free-solid-svg-icons'
 
 import './Main.css';
 
-const faCaretIcon = faCaretRight as Icon
-const faGrimBeamIcon = faGrinAlt as Icon
-
-const dataPie = [
-    { name: 'value', value: 550 }
-];
-
-let renderLabel = function (entry: { value: number; }) {
-    return entry.value;
-}
-
 const Main = () => {
-    // let [data, setData] = useState<IUser>({
-    //     _id: '',
-    //     name: '',
-    //     image: '',
-    //     userText: '',
-    //     userNumber: 0
-    // })
+    let [dataUser, setData] = useState<IUserArray>([{
+        _id: '',
+        name: '',
+        image: '',
+        userText: '',
+        userNumber: 0
+    }])
 
-    // useEffect(() => {
-    //     async function fetchUser() {
-    //         const userData = await getUserDataService();
+    useEffect(() => {
+        async function fetchUser() {
+            const userData: IUserArray = await getUserDataService();
 
-    //         setData(userData);
-    //     }
-    //     fetchUser();
-    // }, [data])
+            setData(() => {
+                dataPieScale.userNumber = 910 - userData[0].userNumber;
+                const userDataWithScale = [...userData, dataPieScale,];
+                console.log(userDataWithScale);
+
+                return userDataWithScale;
+            });
+        }
+        fetchUser();
+    }, [])
 
     return (
         <>
@@ -72,52 +65,74 @@ const Main = () => {
                         <fieldset className="fieldset">
                             <legend className="legend">How are you doing?</legend>
                             <article className="howRUDoing">
-                                <p className="arrowContainer"><FontAwesomeIcon className="arrow" icon={faCaretIcon} /></p>
+                                <p className=
+                                    {`${'arrowContainer'}
+                                    ${dataUser[0].userNumber < 555 && dataUser[0].userNumber > 0
+                                            ? 'positionArrowAtEnd'
+                                            : dataUser[0].userNumber < 645 && dataUser[0].userNumber > 555
+                                                ? 'positionArrowMiddle'
+                                                : 'positionArrowOnTop'}`
+                                    }>
+                                    <FontAwesomeIcon className="arrow" icon={faCaretIcon} />
+                                </p>
                                 <div className="scale">
-                                    <p>
+                                    <p className={dataUser[0].userNumber > 645 ? 'activeResult' : 'notActiveResult'}>
                                         Great!&nbsp;
                                         <FontAwesomeIcon icon={faGrimBeamIcon} />
                                         <FontAwesomeIcon icon={faGrimBeamIcon} />
                                     </p>
-                                    <p>
+                                    <p className={dataUser[0].userNumber > 555 && dataUser[0].userNumber <= 645 ? 'activeResult' : 'notActiveResult'}>
                                         Good&nbsp;
                                         <FontAwesomeIcon icon={faGrimBeamIcon} />
                                     </p>
-                                    <p>AT RISK!</p>
+                                    <p className={dataUser[0].userNumber < 555 && dataUser[0].userNumber > 0 ? 'activeResult' : 'notActiveResult'}>AT RISK!</p>
                                 </div>
                             </article>
-                            <p>
-                                You are at <b>significantly more risk</b> <br></br> that other businesses in your area
-                            </p>
+                            {dataUser[0].userNumber < 555 && dataUser[0].userNumber > 0
+                                ? <p>
+                                    You are at <b>significantly more risk</b> <br></br> than other businesses in your area
+                                </p>
+                                : <p>
+                                    You are at <b>significantly better</b> <br></br> than other businesses in your area
+                                </p>
+                            }
                         </fieldset>
                     </article>
                 </article>
             </section >
             <section className="referenceValues">
                 <p className="referenceValuesTitle">
-                    <b>Overall Cybersecurity Vurnerability Score </b>
+                    <b>Your Cybersecurity Vurnerability Score </b>
                 </p>
                 <article className="overallVurnerability">
                     <article className="pieChart">
                         <p style={{ fontSize: '25px' }}><b>Your Score</b></p>
                         <PieChart width={250} height={250} >
+                            <text
+                                x={120}
+                                y={110}
+                                fontSize={30}
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                            >
+                                {dataUser[0].userNumber}
+                            </text>
                             <Pie
-                                label={renderLabel}
-                                data={dataPie}
-                                cx={120}
-                                cy={100}
-                                startAngle={180}
-                                endAngle={0}
+                                data={dataUser}
+                                cy={80}
+                                startAngle={-20}
+                                endAngle={200}
                                 innerRadius={60}
                                 outerRadius={80}
                                 fill="#2196F3"
-                                paddingAngle={5}
-                                dataKey="value"
+                                paddingAngle={0}
+                                dataKey="userNumber"
+                                blendStroke
                             >
-                                {/* <LabelList className="labelList" dataKey="value" position="end" fill="black" /> */}
-                                <text x={400} y={200} textAnchor="middle" dominantBaseline="middle">
-                                    Donut
-                                </text>
+                                <Cell
+                                    key="test"
+                                    fill="#CCC"
+                                />
                             </Pie>
                         </PieChart>
                     </article>
