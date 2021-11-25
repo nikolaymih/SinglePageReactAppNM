@@ -1,0 +1,85 @@
+.referenceValues {
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 70px;
+    position: relative;
+    border-radius: 2px;
+}
+
+.referenceValues:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 40%;
+    border: 1.2px solid;
+    background-color: #000;
+}
+
+.referenceValuesTitle {
+    padding-top: 20px;
+    margin-top: 15px;
+}
+
+.pieChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    height: 250px;
+}
+
+.labelList {
+    padding-right: 50px;
+}
+
+.businessInformation {
+    padding-left: 25px
+}
+
+.businessInformation h3 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.businessInformation p {
+    font-size: 7px;
+    letter-spacing: 2px;
+}
+
+.scoreBtn {
+    background-color: white;
+    padding: 5px 30px 5px 30px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+@media only screen and (max-width: 900px) {
+    .referenceValues {
+        max-width: 90%;
+        margin: 0 auto;
+        margin-top: 50px;
+        align-items: center;
+    }
+
+    .overallVurnerability {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .referenceValues:before {
+        width: 100%;
+    }
+
+    .referenceValuesTitle {
+        text-align: center;
+    }
+
+    .businessInformation {
+        text-align: center;
+    }
+
+    .scoreBtn {
+        margin-bottom: 50px;
+    }
+}
