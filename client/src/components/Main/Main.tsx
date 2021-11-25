@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { IUserArray } from '../../interfaces/user.interface';
 import { getUserDataService } from '../../service/user.service';
+import { ReferenceBoard } from '../ReferenceBoard/ReferenceBoard';
+import { Cell, PieChart, Pie } from 'recharts';
 
-import { BarChart, Bar, XAxis, Cell, ResponsiveContainer, LabelList, PieChart, Pie } from 'recharts';
-import { barColors, CustomizedAxisTick, data, dataPieScale, faCaretIcon, faGrimBeamIcon } from '../../constants/main.constants';
+import { dataPieScale } from '../../constants/main.constants';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { ScoreBoard } from '../ScoreBoard/ScoreBoard';
 
 import './Main.css';
 
@@ -18,88 +20,30 @@ const Main = () => {
         userNumber: 0
     }])
 
+    const location = useLocation().pathname;
+
     useEffect(() => {
         async function fetchUser() {
-            const userData: IUserArray = await getUserDataService();
+            const userData: IUserArray = await getUserDataService(location);
+            console.log(userData);
 
             setData(() => {
                 dataPieScale.userNumber = 910 - userData[0].userNumber;
-                const userDataWithScale = [...userData, dataPieScale,];
-                console.log(userDataWithScale);
+                const userDataWithScale = [...userData, dataPieScale];
 
                 return userDataWithScale;
             });
         }
         fetchUser();
-    }, [])
+    }, [location])
 
     return (
         <>
-            <section className="referenceValues">
-                <p className="referenceValuesTitle">
-                    <b>Overall Cybersecurity Vurnerability: How do you compare? </b>
-                </p>
-                <article className="overallVurnerability">
-                    <article className="graphValues">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                                width={400}
-                                height={250}
-                                data={data}
-                                barCategoryGap={2}
-                                margin={{ top: 15, right: 30, left: 20, bottom: 5 }}
-                            >
-                                <XAxis dataKey="name" axisLine={false} width={150} tick={<CustomizedAxisTick />} tickSize={-1} />
-                                <Bar dataKey="pv" fill="#8884d8" radius={[10, 10, 0, 0]}>
-                                    <LabelList dataKey="pv" position="top" fill="black" />
-                                    {
-                                        data.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={barColors[index % 20]} />
-                                        ))
-                                    }
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </article>
-                    <article className="userResult">
-                        <fieldset className="fieldset">
-                            <legend className="legend">How are you doing?</legend>
-                            <article className="howRUDoing">
-                                <p className=
-                                    {`${'arrowContainer'}
-                                    ${dataUser[0].userNumber < 555 && dataUser[0].userNumber > 0
-                                            ? 'positionArrowAtEnd'
-                                            : dataUser[0].userNumber < 645 && dataUser[0].userNumber > 555
-                                                ? 'positionArrowMiddle'
-                                                : 'positionArrowOnTop'}`
-                                    }>
-                                    <FontAwesomeIcon className="arrow" icon={faCaretIcon} />
-                                </p>
-                                <div className="scale">
-                                    <p className={dataUser[0].userNumber > 645 ? 'activeResult' : 'notActiveResult'}>
-                                        Great!&nbsp;
-                                        <FontAwesomeIcon icon={faGrimBeamIcon} />
-                                        <FontAwesomeIcon icon={faGrimBeamIcon} />
-                                    </p>
-                                    <p className={dataUser[0].userNumber > 555 && dataUser[0].userNumber <= 645 ? 'activeResult' : 'notActiveResult'}>
-                                        Good&nbsp;
-                                        <FontAwesomeIcon icon={faGrimBeamIcon} />
-                                    </p>
-                                    <p className={dataUser[0].userNumber < 555 && dataUser[0].userNumber > 0 ? 'activeResult' : 'notActiveResult'}>AT RISK!</p>
-                                </div>
-                            </article>
-                            {dataUser[0].userNumber < 555 && dataUser[0].userNumber > 0
-                                ? <p>
-                                    You are at <b>significantly more risk</b> <br></br> than other businesses in your area
-                                </p>
-                                : <p>
-                                    You are at <b>significantly better</b> <br></br> than other businesses in your area
-                                </p>
-                            }
-                        </fieldset>
-                    </article>
-                </article>
-            </section >
+            <ReferenceBoard {...dataUser} />
+
+            {/* For some reason pie chart does not render inside of this component
+             <ScoreBoard {...dataUser} /> */}
+
             <section className="referenceValues">
                 <p className="referenceValuesTitle">
                     <b>Your Cybersecurity Vurnerability Score </b>
@@ -107,7 +51,7 @@ const Main = () => {
                 <article className="overallVurnerability">
                     <article className="pieChart">
                         <p style={{ fontSize: '25px' }}><b>Your Score</b></p>
-                        <PieChart width={250} height={250} >
+                        <PieChart width={250} height={300} >
                             <text
                                 x={120}
                                 y={110}
@@ -120,18 +64,18 @@ const Main = () => {
                             <Pie
                                 data={dataUser}
                                 cy={80}
-                                startAngle={-20}
-                                endAngle={200}
+                                startAngle={200}
+                                endAngle={-20}
                                 innerRadius={60}
                                 outerRadius={80}
-                                fill="#2196F3"
+                                fill="#CCC"
                                 paddingAngle={0}
                                 dataKey="userNumber"
                                 blendStroke
                             >
                                 <Cell
                                     key="test"
-                                    fill="#CCC"
+                                    fill="#2196F3"
                                 />
                             </Pie>
                         </PieChart>

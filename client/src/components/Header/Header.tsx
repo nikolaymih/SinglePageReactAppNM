@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { IUser, IUserArray } from '../../interfaces/user.interface';
+import { IUserArray } from '../../interfaces/user.interface';
 import { getUserDataService } from '../../service/user.service';
+import { useLocation } from 'react-router-dom';
 
 import './Header.css';
 
@@ -13,14 +14,16 @@ const Header = () => {
         userNumber: 0
     }]);
 
+    const location = useLocation().pathname;
+
     useEffect(() => {
         async function fetchMyApi() {
-            const userData = await getUserDataService();
+            const userData = await getUserDataService(location);
 
             setData(userData);
         }
         fetchMyApi();
-    }, [])
+    }, [location])
 
     return (
         <header className="header">

@@ -1,0 +1,74 @@
+.overallVurnerability {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.userResult {
+    padding-left: 100px;
+}
+
+.graphValues {
+    padding-top: 30px;
+    width: 50%;
+    height: 250px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black
+}
+
+.fieldset {
+    border-color: #FF7052;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 4px;
+}
+
+.legend {
+    padding: 5px;
+    font-weight: bold;
+}
+
+.howRUDoing {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.arrowContainer {
+    border-right: 3px solid #FF7052;
+    padding: 1px 10px;
+}
+
+.positionArrowOnTop {
+    display: flex;
+    align-items: flex-start;
+}
+
+.positionArrowMiddle {
+    display: flex;
+    align-items: center;
+}
+
+.positionArrowAtEnd {
+    display: flex;
+    align-items: flex-end;
+}
+
+.arrowContainer .arrow {
+    font-size: 60px;
+    color: #FF7052;
+}
+
+.notActiveResult {
+    color: lightgray;
+    font-weight: bold;
+}
+
+.activeResult {
+    color: #FF7052;
+}
+
+@media only screen and (max-width: 900px) {
+    .userResult {
+        padding-left: 0px;
+    }
+}
