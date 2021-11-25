@@ -22,7 +22,7 @@ export const userGetInfoService = async (query: FilterQuery<IUserInfo>) => {
     let userInfo = await User.find(query).lean();
 
     const userText = lorem.generateSentences(5);
-    const userNumber = Math.floor(Math.random() * (750 - 555 + 1) + 555);
+    const userNumber = Math.floor(Math.random() * (910 - 400 + 1) + 400);
 
     let userAllInformation = {
         ...userInfo[0],

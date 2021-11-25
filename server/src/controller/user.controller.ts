@@ -15,5 +15,5 @@ export const userGetInfoHandler = async (req: Request, res: Response) => {
 
     const userInfo = await userGetInfoService({name: userName});
 
-    res.status(200).send(userInfo);
+    res.status(200).send([userInfo]);
 }
